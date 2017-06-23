@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  script(src="/socket.io/socket.io.js")
+  script.
+    var socket = io('//'+document.location.hostname+':'+document.location.port);
+    socket.on('addpage', function (data) {
+      console.log('12345')
+      console.log(data);
+      socket.emit('hello', { my: data });
+    });

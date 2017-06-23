@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  input(type='text',required=true, id="name")
+  input(type='submit', onclick="submit()" id='submit' value=submit)
+  script(src="/socket.io/socket.io.js")
+  script.
+    var socket = io('//'+document.location.hostname+':'+document.location.port);
+    socket.on('output', function (data) {
+      console.log('message from server')
+      console.log(data);
+    });
+    function submit(){
+      socket.emit('inputdata', document.getElementById("name").value);
+    }
